@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 
 class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,8 +16,23 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        findViewById<Button>(R.id.button).setOnClickListener {
+        val signUpIdText = findViewById<EditText>(R.id.signup_id_edit)
+        val signUpPwText = findViewById<EditText>(R.id.signup_pw_edit)
+        val signUpNameText = findViewById<EditText>(R.id.signup_name_edit)
+
+        findViewById<Button>(R.id.signin_return).setOnClickListener {
+            finish()
+        }
+        findViewById<Button>(R.id.signup_btn).setOnClickListener {
+            val signUpId = signUpIdText.text.toString()
+            val signUpPw = signUpPwText.text.toString()
+            val signUpName = signUpNameText.text.toString()
+
+            if (signUpId.isEmpty() || signUpPw.isEmpty() || signUpName.isEmpty()) {
+                Toast.makeText(this, "입력되지 않은 정보가 있습니다.", Toast.LENGTH_SHORT).show()
+            } else {
             finish()
         }
     }
+}
 }
