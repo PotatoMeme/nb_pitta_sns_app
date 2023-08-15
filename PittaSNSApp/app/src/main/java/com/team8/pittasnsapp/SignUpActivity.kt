@@ -1,5 +1,6 @@
 package com.team8.pittasnsapp
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,6 +32,11 @@ class SignUpActivity : AppCompatActivity() {
             if (signUpId.isEmpty() || signUpPw.isEmpty() || signUpName.isEmpty()) {
                 Toast.makeText(this, "입력되지 않은 정보가 있습니다.", Toast.LENGTH_SHORT).show()
             } else {
+                val intent = Intent()
+                intent.putExtra("signedUpId", signUpId)
+                intent.putExtra("signedUpPw", signUpPw)
+                setResult(Activity.RESULT_OK, intent)
+                Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
             finish()
         }
     }

@@ -1,13 +1,17 @@
 package com.team8.pittasnsapp
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 
 class SignInActivity : AppCompatActivity() {
+    lateinit var resultIdPw: ActivityResultLauncher<Intent>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
@@ -19,6 +23,17 @@ class SignInActivity : AppCompatActivity() {
     private fun initViews() {
         val idText = findViewById<EditText>(R.id.id_edit_text)
         val pwText = findViewById<EditText>(R.id.pw_edit_text)
+
+        resultIdPw = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data
+                val signedUpId = data?.getStringExtra("signedUpId")
+                val signedUpPw = data?.getStringExtra("signedUpPw")
+                // Use the data received from SignUpActivity (if needed)
+                idText.setText(signedUpId)
+                pwText.setText(signedUpPw)
+            }
+        }
 
         findViewById<Button>(R.id.login_btn).setOnClickListener {
             val id = idText.text.toString()
@@ -34,7 +49,8 @@ class SignInActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.signup_btn).setOnClickListener {
-            startActivity(Intent(this, SignUpActivity::class.java))
+            val intent = Intent(this, SignUpActivity::class.java)
+            resultIdPw.launch(intent)
         }
     }
 }

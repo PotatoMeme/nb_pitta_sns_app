@@ -35,6 +35,8 @@
         android:layout_marginTop="8dp"
         android:hint="아이디를 입력 하세요."
         android:textStyle="italic"
+        android:singleLine="true"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_id_text" />
@@ -93,6 +95,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="이름을 입력하세요."
+        android:singleLine="true"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_name_text" />
