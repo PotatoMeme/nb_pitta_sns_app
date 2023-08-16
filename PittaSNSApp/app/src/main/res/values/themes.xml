@@ -7,7 +7,7 @@
 
     <style name="Theme.PittaSNSApp" parent="Base.Theme.PittaSNSApp" />
 
-    <style name="TextLabel" parent="TextAppearance.Design.Hint">
+    <style name="HintText" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">12sp</item>
     </style>
 
