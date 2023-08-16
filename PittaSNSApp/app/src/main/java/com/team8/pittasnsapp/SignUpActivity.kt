@@ -9,9 +9,12 @@ import android.widget.EditText
 import android.widget.Toast
 
 class SignUpActivity : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
 
         initViews()
     }
@@ -37,8 +40,8 @@ class SignUpActivity : AppCompatActivity() {
                 intent.putExtra("signedUpPw", signUpPw)
                 setResult(Activity.RESULT_OK, intent)
                 Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
-            finish()
+                finish()
+            }
         }
     }
-}
 }
