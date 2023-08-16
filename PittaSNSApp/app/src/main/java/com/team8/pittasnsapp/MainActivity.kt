@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,11 +41,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+        findViewById<Toolbar>(R.id.main_toolbar).title = "Pitta"
+
         val fragmentManager = supportFragmentManager
         fragmentManager.beginTransaction().add(R.id.frame_layout,homeFragment).commit()
         fragmentManager.beginTransaction().add(R.id.frame_layout,userFragment).commit()
         fragmentManager.beginTransaction().add(R.id.frame_layout,settingFragment).commit()
-
+        
         fragmentManager.beginTransaction().show(homeFragment).commit()
         fragmentManager.beginTransaction().hide(settingFragment).commit()
         fragmentManager.beginTransaction().hide(userFragment).commit()
