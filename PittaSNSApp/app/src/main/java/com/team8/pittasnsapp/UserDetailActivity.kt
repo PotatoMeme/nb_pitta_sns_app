@@ -59,6 +59,7 @@ class UserDetailActivity : AppCompatActivity() {
                 adapter = StaggeredPostRecyclerViewAdapter { postId ->
                     val intent: Intent =
                         Intent(this@UserDetailActivity, PostDetailActivity::class.java)
+                    intent.putExtra(Key.INTENT_USER_ID, userId)
                     intent.putExtra(Key.INTENT_POST_ID, postId)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.none)
