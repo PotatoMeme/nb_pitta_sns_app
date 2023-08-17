@@ -5,13 +5,21 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextWatcher
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputLayout
+import com.team8.pittasnsapp.Util.idRegex
+import com.team8.pittasnsapp.Util.pwRegax
 
 class SignUpActivity : AppCompatActivity() {
+    companion object{
+        private const val HOME = 16908332
+    }
+
     private lateinit var signUpIdEdit: TextInputLayout
     private lateinit var signUpPwEdit: TextInputLayout
     private lateinit var signUpPwCheckEdit: TextInputLayout
@@ -20,43 +28,55 @@ class SignUpActivity : AppCompatActivity() {
     private var pwFlag = false
     private var pwCheckFlag = false
     private var nameFlag = false
-    private fun hasSpecialCharacter(string: String): Boolean {
-        for (i in string.indices) {
-            if (!Character.isLetterOrDigit(string[i])) {
-                return true
-            }
-        }
-        return false
-    } // 특수기호 제약 함수
 
-    private fun hasAlphabet(string: String): Boolean {
-        for (i in string.indices) {
-            if (Character.isAlphabetic(string[i].code)) {
-                return true
-            }
-        } // 알파벳 제약 함수
-        return false
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_sign_up)
+
+        initViews()
     }
 
-    fun idRegex(id: String): Boolean {
-        if ((!hasSpecialCharacter(id)) and (hasAlphabet(id)) and (id.length >= 5)) {
-            return true
+    private fun initViews() {
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = "회원가입"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        signUpIdEdit = findViewById(R.id.signup_id_edit_layout)
+        signUpPwEdit = findViewById(R.id.signup_pw_edit_layout)
+        signUpPwCheckEdit = findViewById(R.id.signup_pwcheck_edit_layout)
+        signUpNameEdit = findViewById(R.id.signup_name_edit_layout)
+
+        val signUpIdText = findViewById<EditText>(R.id.signup_id_edit)
+        val signUpPwText = findViewById<EditText>(R.id.signup_pw_edit)
+        val signUpPwCheckText = findViewById<EditText>(R.id.signup_pwcheck_edit)
+        val signUpNameText = findViewById<EditText>(R.id.signup_name_edit)
+
+        findViewById<Button>(R.id.back_button).setOnClickListener {
+            finish()
         }
-        return false
-    }
+        findViewById<Button>(R.id.submit_button).setOnClickListener {
+            val signUpId = signUpIdText.text.toString()
+            val signUpPw = signUpPwText.text.toString()
+            val signUpPwCheck = signUpPwCheckText.text.toString()
+            val signUpName = signUpNameText.text.toString()
 
-    fun pwRegax(pw: String): Boolean {
-        return pw.matches("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{8,16}$".toRegex())
-    } //비밀번호 제약 같은 경우는 손대기가 어려워서 일단 공부해온 블로그에서 긁어 왔습니다. 제약이 너무 많다 싶으면  없애셔도 됩니다.
-
-    private val idListener = object : TextWatcher {
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            if (signUpId.isEmpty() || signUpPw.isEmpty() || signUpPwCheck.isEmpty() || signUpName.isEmpty()) {
+                Toast.makeText(this, "입력되지 않은 정보가 있습니다.", Toast.LENGTH_SHORT).show()
+            } else if (flagCheck()){
+                val intent = Intent()
+                intent.putExtra("signedUpId", signUpId)
+                intent.putExtra("signedUpPw", signUpPw)
+                SampleData.addUser(signUpName,signUpId,signUpPw)
+                setResult(Activity.RESULT_OK, intent)
+                Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                finish()
+            } else {
+                Toast.makeText(this, "모든조건을 수행해 주세요", Toast.LENGTH_SHORT).show()
+            }
         }
 
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        }
-
-        override fun afterTextChanged(s: Editable?) {
+        signUpIdText.addTextChangedListener { s: Editable? ->
             if (s != null) {
                 when {
                     s.isEmpty() -> {
@@ -74,16 +94,9 @@ class SignUpActivity : AppCompatActivity() {
                         idFlag = true
                     }
                 }
-                flagCheck()
             }
         }
-    }
-    private val pwListener = object : TextWatcher {
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-        override fun afterTextChanged(s: Editable?) {
+        signUpPwText.addTextChangedListener { s: Editable? ->
             if (s != null) {
                 when {
                     s.isEmpty() -> {
@@ -101,16 +114,9 @@ class SignUpActivity : AppCompatActivity() {
                         pwFlag = true
                     }
                 }
-                flagCheck()
             }
         }
-    }
-    private val pwCheckListener = object : TextWatcher {
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-        override fun afterTextChanged(s: Editable?) {
+        signUpPwCheckText.addTextChangedListener { s: Editable? ->
             if (s != null) {
                 val pw = signUpPwEdit.editText?.text.toString()
                 when {
@@ -129,79 +135,32 @@ class SignUpActivity : AppCompatActivity() {
                         pwCheckFlag = true
                     }
                 }
-                flagCheck()
             }
         }
-    }
-    private val nameListener = object : TextWatcher {
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-        override fun afterTextChanged(s: Editable?) {
+        signUpNameText.addTextChangedListener { s: Editable? ->
             if (s != null) {
-                when {
-                    s.isEmpty() -> {
-                        signUpNameEdit.error = "이름을 입력해주세요."
-                        nameFlag = false
-                    }
-
-                    else -> {
-                        signUpNameEdit.error = null
-                        nameFlag = true
-                    }
+                if (s.isBlank()) {
+                    signUpNameEdit.error = "이름을 입력해주세요."
+                    nameFlag = false
+                } else {
+                    signUpNameEdit.error = null
+                    nameFlag = true
                 }
-                flagCheck()
             }
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
 
-
-        initViews()
+    private fun flagCheck(): Boolean {
+        return idFlag && pwFlag && pwCheckFlag && nameFlag
     }
 
-    private fun initViews() {
-        signUpIdEdit = findViewById(R.id.signup_id_edit_layout)
-        signUpPwEdit = findViewById(R.id.signup_pw_edit_layout)
-        signUpPwCheckEdit = findViewById(R.id.signup_pwcheck_edit_layout)
-        signUpNameEdit = findViewById(R.id.signup_name_edit_layout)
-
-        val signUpIdText = findViewById<EditText>(R.id.signup_id_edit)
-        val signUpPwText = findViewById<EditText>(R.id.signup_pw_edit)
-        val signUpPwCheckText = findViewById<EditText>(R.id.signup_pwcheck_edit)
-        val signUpNameText = findViewById<EditText>(R.id.signup_name_edit)
-
-        findViewById<Button>(R.id.signin_return).setOnClickListener {
-            finish()
-        }
-        findViewById<Button>(R.id.signup_btn).setOnClickListener {
-            val signUpId = signUpIdText.text.toString()
-            val signUpPw = signUpPwText.text.toString()
-            val signUpPwCheck = signUpPwCheckText.text.toString()
-            val signUpName = signUpNameText.text.toString()
-
-            if (signUpId.isEmpty() || signUpPw.isEmpty() || signUpPwCheck.isEmpty() ||signUpName.isEmpty()) {
-                Toast.makeText(this, "입력되지 않은 정보가 있습니다.", Toast.LENGTH_SHORT).show()
-            } else {
-                val intent = Intent()
-                intent.putExtra("signedUpId", signUpId)
-                intent.putExtra("signedUpPw", signUpPw)
-                setResult(Activity.RESULT_OK, intent)
-                Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            HOME -> {
                 finish()
             }
         }
-        signUpIdText.addTextChangedListener(idListener)
-        signUpPwText.addTextChangedListener(pwListener)
-        signUpPwCheckText.addTextChangedListener(pwCheckListener)
-        signUpNameText.addTextChangedListener(nameListener)
-    }
-
-    private fun flagCheck() {
-        // flag들의 상태에 따른 처리를 수행
+        return super.onOptionsItemSelected(item)
     }
 }

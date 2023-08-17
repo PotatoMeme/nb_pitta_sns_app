@@ -9,18 +9,22 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.Toolbar
 
 class SignInActivity : AppCompatActivity() {
-    lateinit var resultIdPw: ActivityResultLauncher<Intent>
+    private lateinit var resultIdPw: ActivityResultLauncher<Intent>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
         initViews()
-
     }
 
     private fun initViews() {
+        val toolbar : Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = "Pitta"
+
         val idText = findViewById<EditText>(R.id.id_edit_text)
         val pwText = findViewById<EditText>(R.id.pw_edit_text)
 
@@ -39,12 +43,14 @@ class SignInActivity : AppCompatActivity() {
             val id = idText.text.toString()
             val pw = pwText.text.toString()
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("textFromId", id)
-            if (id.isEmpty() || pw.isEmpty()) {
+            if (id.isEmpty() || pw.isEmpty() || !SampleData.userArrayList.any{it.personalId == id && it.personalPassword == pw}) {
                 Toast.makeText(this, "아이디/비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
+                intent.putExtra(Key.INTENT_LOGIN_USER_ID,SampleData.userArrayList.first{it.personalId == id && it.personalPassword == pw}.id )
                 startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.none)
+                finish()
             }
         }
 
