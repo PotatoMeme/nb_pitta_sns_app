@@ -41,6 +41,7 @@ class UserDetailActivity : AppCompatActivity() {
         if (userId != null) {
             val currentUser: User = SampleData.userArrayList.first { it.id == userId }
             supportActionBar?.title = currentUser.name
+            findViewById<TextView>(R.id.name_text_view).text = currentUser.name
             val imageView: ImageView = findViewById<ImageView>(R.id.profile_image_view)
 
             Glide.with(this)
