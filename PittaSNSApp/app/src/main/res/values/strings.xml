@@ -9,4 +9,11 @@
     <string name="signup_name">이름</string>
     <string name="signin_back">돌아가기</string>
     <string name="signup_btn">회원가입</string>
+    <string name="user_detail_id_text_view">아이디</string>
+    <string name="user_detail_name_text_view">이름</string>
+    <string name="user_detail_member_name">팀원 이름</string>
+    <string name="user_detail_id">아이디</string>
+    <string name="user_detail_logout">로그아웃</string>
+    <string name="user_detail_introduce">자기소개 - 한 줄로 짧게 자기소개 하기</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
