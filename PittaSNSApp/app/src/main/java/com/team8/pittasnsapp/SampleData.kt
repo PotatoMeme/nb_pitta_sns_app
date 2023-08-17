@@ -139,6 +139,7 @@ object SampleData {
                 Post(
                     id,
                     userArrayList[random.nextInt(userArrayList.size)],
+                    "test title $id",
                     "test description $id".repeat(20),
                     samplePostImgs[id]
                 )
@@ -147,8 +148,16 @@ object SampleData {
     }
 
     private var countPostIdx = 39
-    fun addPost(userId: Int, description: String) {
+    fun addPost(userId: Int, title: String, description: String) {
         val nextId = ++countPostIdx
-        postArrayList.add(Post(nextId, userArrayList[userId], description, samplePostImgs[0]))
+        postArrayList.add(
+            Post(
+                nextId,
+                userArrayList[userId],
+                title,
+                description,
+                samplePostImgs[0]
+            )
+        )
     }
 }

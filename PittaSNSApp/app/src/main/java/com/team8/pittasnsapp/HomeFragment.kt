@@ -20,11 +20,11 @@ class HomeFragment : Fragment() {
         fun newInstance() = HomeFragment()
 
         private const val TAG = "HomeFragment"
-        private var count1 = 0
-        private var count2 = 0
+        //private var count1 = 0
+        //private var count2 = 0
     }
     init {
-        Log.d(TAG, "init: ${count1++}")
+        //Log.d(TAG, "init: ${count1++}")
     }
 
     override fun onCreateView(
@@ -42,13 +42,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun initView(view: View) {
-        Log.d(TAG, "initView: ${count2++}")
+        //Log.d(TAG, "initView: ${count2++}")
         view.findViewById<RecyclerView>(R.id.profile_recycler_view).apply {
             adapter = ProfileRecyclerView { userId ->
                 val intent: Intent =
                     Intent(this@HomeFragment.context, UserDetailActivity::class.java)
                 intent.putExtra(Key.INTENT_USER_ID,userId)
                 startActivity(intent)
+                activity?.overridePendingTransition(R.anim.slide_in_right,R.anim.none)
             }.apply {
                 addAllUser(SampleData.userArrayList)
             }
@@ -66,6 +67,7 @@ class HomeFragment : Fragment() {
                     Intent(this@HomeFragment.context, PostDetailActivity::class.java)
                 intent.putExtra(Key.INTENT_POST_ID,postId)
                 startActivity(intent)
+                activity?.overridePendingTransition(R.anim.slide_in_right,R.anim.none)
             }.apply {
                 addAllPost(SampleData.postArrayList)
             }

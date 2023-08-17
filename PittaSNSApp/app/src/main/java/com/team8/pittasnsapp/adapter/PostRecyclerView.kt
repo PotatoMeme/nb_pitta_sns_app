@@ -28,21 +28,26 @@ class PostRecyclerView(
 
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(pos: Int) {
-            view.setOnClickListener { itemClickFunction(postArrayList[pos].id) }
+            val currentItem = postArrayList[pos]
 
-            view.findViewById<TextView>(R.id.profile_text_view).text = postArrayList[pos].user.name
+            view.setOnClickListener { itemClickFunction(currentItem.id) }
+
+            view.findViewById<TextView>(R.id.title_text_view).text = currentItem.title
+            view.findViewById<TextView>(R.id.profile_text_view).text = currentItem.user.name
             view.findViewById<TextView>(R.id.post_description_text_view).text =
-                postArrayList[pos].description
+                currentItem.description
 
+            val profileImageView : ImageView = view.findViewById(R.id.profile_image_view)
             Glide.with(view)
-                .load(postArrayList[pos].user.userImgUrl)
+                .load(currentItem.user.userImgUrl)
                 .placeholder(R.drawable.ic_launcher_foreground)
-                .into(view.findViewById(R.id.profile_image_view))
+                .into(profileImageView)
 
+            val postImageView: ImageView = view.findViewById(R.id.post_image_view)
             Glide.with(view)
                 .load(postArrayList[pos].postImgUrl)
                 .placeholder(R.drawable.ic_launcher_foreground)
-                .into(view.findViewById(R.id.post_image_view))
+                .into(postImageView)
         }
     }
 
