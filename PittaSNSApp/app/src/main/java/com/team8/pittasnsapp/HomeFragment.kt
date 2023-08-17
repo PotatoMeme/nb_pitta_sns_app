@@ -24,7 +24,6 @@ class HomeFragment : Fragment() {
         private var count2 = 0
     }
     init {
-
         Log.d(TAG, "init: ${count1++}")
     }
 
@@ -45,13 +44,13 @@ class HomeFragment : Fragment() {
     private fun initView(view: View) {
         Log.d(TAG, "initView: ${count2++}")
         view.findViewById<RecyclerView>(R.id.profile_recycler_view).apply {
-            adapter = ProfileRecyclerView { pos ->
+            adapter = ProfileRecyclerView { userId ->
                 val intent: Intent =
                     Intent(this@HomeFragment.context, UserDetailActivity::class.java)
+                intent.putExtra(Key.INTENT_USER_ID,userId)
                 startActivity(intent)
             }.apply {
-                repeat(20) { addUser(User(it, "sampleUser$it")) }
-                notifyDataSetChanged()
+                addAllUser(SampleData.userArrayList)
             }
             layoutManager =
                 LinearLayoutManager(
@@ -62,22 +61,13 @@ class HomeFragment : Fragment() {
         }
 
         view.findViewById<RecyclerView>(R.id.post_recycler_view).apply {
-            adapter = PostRecyclerView { pos ->
+            adapter = PostRecyclerView { postId ->
                 val intent: Intent =
                     Intent(this@HomeFragment.context, PostDetailActivity::class.java)
+                intent.putExtra(Key.INTENT_POST_ID,postId)
                 startActivity(intent)
             }.apply {
-                repeat(100) {
-                    addPost(
-                        Post(
-                            it,
-                            User(it, "sampleUser$it"),
-                            "sample description $it".repeat(10),
-                            "2023-08-14"
-                        )
-                    )
-                }
-                notifyDataSetChanged()
+                addAllPost(SampleData.postArrayList)
             }
 
             layoutManager = LinearLayoutManager(this@HomeFragment.context)

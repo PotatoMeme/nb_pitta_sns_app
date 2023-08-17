@@ -4,25 +4,29 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.team8.pittasnsapp.R
 import com.team8.pittasnsapp.model.User
 
 class ProfileRecyclerView(
-    val itemClickFunction: (pos: Int) -> Unit,
+    val itemClickFunction: (userId: Int) -> Unit,
 ) : RecyclerView.Adapter<ProfileRecyclerView.ViewHolder>() {
     private val profileArrayList: ArrayList<User> = ArrayList()
 
     fun addUser(user: User) {
         profileArrayList.add(user)
+        notifyDataSetChanged()
+    }
+    fun addAllUser(users: List<User>) {
+        profileArrayList.addAll(users)
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(pos: Int) {
             view.findViewById<LinearLayout>(R.id.profile_layout)
-                .setOnClickListener { itemClickFunction(pos) }
+                .setOnClickListener { itemClickFunction(profileArrayList[pos].id) }
 
             //view.findViewById<ImageView>(R.id.profile_image_view).drawable
         }

@@ -4,26 +4,29 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.team8.pittasnsapp.R
 import com.team8.pittasnsapp.model.Post
-import com.team8.pittasnsapp.model.User
 
 class PostRecyclerView(
-    val itemClickFunction: (pos: Int) -> Unit,
+    val itemClickFunction: (postId: Int) -> Unit,
 ) : RecyclerView.Adapter<PostRecyclerView.ViewHolder>() {
     private val postArrayList: ArrayList<Post> = ArrayList()
 
     fun addPost(post: Post) {
         postArrayList.add(post)
+        notifyDataSetChanged()
+    }
+
+    fun addAllPost(posts:List<Post>){
+        postArrayList.addAll(posts)
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(pos: Int) {
-            view.setOnClickListener { itemClickFunction(pos) }
+            view.setOnClickListener { itemClickFunction(postArrayList[pos].id) }
 
             view.findViewById<TextView>(R.id.profile_text_view).text = postArrayList[pos].user.name
             view.findViewById<TextView>(R.id.post_description_text_view).text =

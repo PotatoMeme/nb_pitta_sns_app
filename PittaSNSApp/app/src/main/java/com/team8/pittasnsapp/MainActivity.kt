@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         fragmentManager.beginTransaction().add(R.id.frame_layout,homeFragment).commit()
         fragmentManager.beginTransaction().add(R.id.frame_layout,userFragment).commit()
         fragmentManager.beginTransaction().add(R.id.frame_layout,settingFragment).commit()
-        
+
         fragmentManager.beginTransaction().show(homeFragment).commit()
         fragmentManager.beginTransaction().hide(settingFragment).commit()
         fragmentManager.beginTransaction().hide(userFragment).commit()
