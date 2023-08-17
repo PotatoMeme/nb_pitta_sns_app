@@ -1,7 +1,10 @@
 package com.team8.pittasnsapp
 
+import android.app.Activity
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -43,6 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
             .setOnItemSelectedListener { item ->
+                hideKeyboard()
                 when (item.itemId) {
                     R.id.bottom_home -> {
                         fragmentManager.beginTransaction().hide(searchFragment).commit()
@@ -74,5 +78,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
+    }
+
+    private fun hideKeyboard(){
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(window.decorView.applicationWindowToken, 0)
     }
 }

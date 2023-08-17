@@ -1,13 +1,16 @@
 package com.team8.pittasnsapp
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -46,8 +49,10 @@ class SearchFragment : Fragment() {
         }
         postRecyclerViewAdapter.addAllPost(SampleData.postArrayList)
 
+        val editText: EditText = view.findViewById(R.id.search_edit_text)
+
         view.findViewById<FloatingActionButton>(R.id.search_button).setOnClickListener {
-            val editText: EditText = view.findViewById(R.id.search_edit_text)
+
             if (editText.text.isBlank()) {
                 Toast.makeText(this@SearchFragment.context, "값을 입력해주세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -57,7 +62,18 @@ class SearchFragment : Fragment() {
                     editText.text.toString()
                 )
             })
+            hideKeyboard()
+        }
+    }
 
+    private fun hideKeyboard() {
+        if (activity != null && requireActivity().currentFocus != null) {
+            val inputManager =
+                requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputManager.hideSoftInputFromWindow(
+                requireActivity().currentFocus!!.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
         }
     }
 }
