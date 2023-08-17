@@ -10,6 +10,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
+    private val currentUserId : Int by lazy {
+        intent.getIntExtra(Key.INTENT_LOGIN_USER_ID,0)
+    }
+
     private val homeFragment: HomeFragment by lazy {
         HomeFragment.newInstance()
     }
@@ -17,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         SearchFragment.newInstance()
     }
     private val userFragment: UserFragment by lazy {
-        UserFragment.newInstance()
+        UserFragment.newInstance(currentUserId)
     }
     private val settingFragment: SettingFragment by lazy {
         SettingFragment.newInstance()
@@ -26,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         initViews()
     }
 

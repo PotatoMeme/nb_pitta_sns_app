@@ -6,9 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
+private const val ARG_PARAM1 = "current_user_id"
 class UserFragment : Fragment() {
     companion object {
-        fun newInstance() = UserFragment()
+        fun newInstance(currentUserId : Int) = UserFragment().apply {
+            arguments = Bundle().apply {
+                putInt(ARG_PARAM1, currentUserId)
+            }
+        }
+    }
+
+    private var currentUserId: Int? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            currentUserId = it.getInt(ARG_PARAM1)
+        }
     }
 
     override fun onCreateView(
@@ -24,7 +38,8 @@ class UserFragment : Fragment() {
     }
 
     private fun initView(view: View) {
+        if (currentUserId != null){
 
-
+        }
     }
 }
