@@ -34,7 +34,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        findViewById<Toolbar>(R.id.main_toolbar).title = "Pitta"
+        val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
+        toolbar.title = "Pitta"
 
         val fragmentManager = supportFragmentManager
         fragmentManager.beginTransaction().add(R.id.frame_layout, homeFragment).commit()
@@ -52,6 +53,7 @@ class MainActivity : AppCompatActivity() {
                 hideKeyboard()
                 when (item.itemId) {
                     R.id.bottom_home -> {
+                        toolbar.title = "Pitta"
                         fragmentManager.beginTransaction().hide(searchFragment).commit()
                         fragmentManager.beginTransaction().hide(userFragment).commit()
                         fragmentManager.beginTransaction().hide(settingFragment).commit()
@@ -59,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     R.id.bottom_search -> {
+                        toolbar.title = "검색"
                         fragmentManager.beginTransaction().hide(homeFragment).commit()
                         fragmentManager.beginTransaction().hide(userFragment).commit()
                         fragmentManager.beginTransaction().hide(settingFragment).commit()
@@ -66,6 +69,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     R.id.bottom_user -> {
+                        toolbar.title = SampleData.userArrayList.first{it.id == currentUserId}.name
                         fragmentManager.beginTransaction().hide(homeFragment).commit()
                         fragmentManager.beginTransaction().hide(searchFragment).commit()
                         fragmentManager.beginTransaction().hide(settingFragment).commit()
@@ -73,6 +77,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     R.id.bottom_setting -> {
+                        toolbar.title = "설정"
                         fragmentManager.beginTransaction().hide(homeFragment).commit()
                         fragmentManager.beginTransaction().hide(searchFragment).commit()
                         fragmentManager.beginTransaction().hide(userFragment).commit()
