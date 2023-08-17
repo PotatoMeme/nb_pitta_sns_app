@@ -11,9 +11,9 @@ import com.bumptech.glide.Glide
 import com.team8.pittasnsapp.R
 import com.team8.pittasnsapp.model.User
 
-class ProfileRecyclerView(
+class ProfileRecyclerViewAdapter(
     val itemClickFunction: (userId: Int) -> Unit,
-) : RecyclerView.Adapter<ProfileRecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<ProfileRecyclerViewAdapter.ViewHolder>() {
     private val profileArrayList: ArrayList<User> = ArrayList()
 
     fun addUser(user: User) {

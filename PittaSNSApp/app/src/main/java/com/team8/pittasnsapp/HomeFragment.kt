@@ -2,17 +2,14 @@ package com.team8.pittasnsapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.team8.pittasnsapp.adapter.PostRecyclerView
-import com.team8.pittasnsapp.adapter.ProfileRecyclerView
-import com.team8.pittasnsapp.model.Post
-import com.team8.pittasnsapp.model.User
+import com.team8.pittasnsapp.adapter.PostRecyclerViewAdapter
+import com.team8.pittasnsapp.adapter.ProfileRecyclerViewAdapter
 
 
 class HomeFragment : Fragment() {
@@ -44,7 +41,7 @@ class HomeFragment : Fragment() {
     private fun initView(view: View) {
         //Log.d(TAG, "initView: ${count2++}")
         view.findViewById<RecyclerView>(R.id.profile_recycler_view).apply {
-            adapter = ProfileRecyclerView { userId ->
+            adapter = ProfileRecyclerViewAdapter { userId ->
                 val intent: Intent =
                     Intent(this@HomeFragment.context, UserDetailActivity::class.java)
                 intent.putExtra(Key.INTENT_USER_ID,userId)
@@ -62,7 +59,7 @@ class HomeFragment : Fragment() {
         }
 
         view.findViewById<RecyclerView>(R.id.post_recycler_view).apply {
-            adapter = PostRecyclerView { postId ->
+            adapter = PostRecyclerViewAdapter { postId ->
                 val intent: Intent =
                     Intent(this@HomeFragment.context, PostDetailActivity::class.java)
                 intent.putExtra(Key.INTENT_POST_ID,postId)

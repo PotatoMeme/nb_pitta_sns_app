@@ -11,9 +11,9 @@ import com.bumptech.glide.Glide
 import com.team8.pittasnsapp.R
 import com.team8.pittasnsapp.model.Post
 
-class PostRecyclerView(
+class PostRecyclerViewAdapter(
     val itemClickFunction: (postId: Int) -> Unit,
-) : RecyclerView.Adapter<PostRecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<PostRecyclerViewAdapter.ViewHolder>() {
     private val postArrayList: ArrayList<Post> = ArrayList()
 
     fun addPost(post: Post) {
@@ -22,6 +22,12 @@ class PostRecyclerView(
     }
 
     fun addAllPost(posts:List<Post>){
+        postArrayList.addAll(posts)
+        notifyDataSetChanged()
+    }
+
+    fun changeAllPost(posts:List<Post>){
+        postArrayList.clear()
         postArrayList.addAll(posts)
         notifyDataSetChanged()
     }
