@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.team8.pittasnsapp.R
 import com.team8.pittasnsapp.model.Post
 
@@ -32,8 +34,15 @@ class PostRecyclerView(
             view.findViewById<TextView>(R.id.post_description_text_view).text =
                 postArrayList[pos].description
 
-        //view.findViewById<ImageView>(R.id.post_image_view).drawable
-            //view.findViewById<ImageView>(R.id.profile_image_view).drawable
+            Glide.with(view)
+                .load(postArrayList[pos].user.userImgUrl)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .into(view.findViewById(R.id.profile_image_view))
+
+            Glide.with(view)
+                .load(postArrayList[pos].postImgUrl)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .into(view.findViewById(R.id.post_image_view))
         }
     }
 

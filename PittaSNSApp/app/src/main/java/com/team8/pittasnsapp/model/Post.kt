@@ -5,5 +5,5 @@ data class Post(
     val user : User,
     val description: String,
     //val time: String,
-    //val postImgUrl : String // 이미지 Url
+    val postImgUrl : String // 이미지 Url
 )

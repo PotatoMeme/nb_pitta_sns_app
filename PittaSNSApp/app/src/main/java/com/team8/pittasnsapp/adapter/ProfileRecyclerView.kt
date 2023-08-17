@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.team8.pittasnsapp.R
 import com.team8.pittasnsapp.model.User
 
@@ -18,6 +20,7 @@ class ProfileRecyclerView(
         profileArrayList.add(user)
         notifyDataSetChanged()
     }
+
     fun addAllUser(users: List<User>) {
         profileArrayList.addAll(users)
         notifyDataSetChanged()
@@ -28,7 +31,11 @@ class ProfileRecyclerView(
             view.findViewById<LinearLayout>(R.id.profile_layout)
                 .setOnClickListener { itemClickFunction(profileArrayList[pos].id) }
 
-            //view.findViewById<ImageView>(R.id.profile_image_view).drawable
+            val imgView = view.findViewById<ImageView>(R.id.profile_image_view)
+            Glide.with(view)
+                .load(profileArrayList[pos].userImgUrl)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .into(imgView)
         }
     }
 
