@@ -4,6 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyboardShortcutGroup
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
@@ -17,6 +20,7 @@ import com.team8.pittasnsapp.model.User
 
 class UserDetailActivity : AppCompatActivity() {
     companion object {
+        private const val HOME = 16908332
         private const val TAG = "UserDetailActivity"
     }
 
@@ -66,5 +70,16 @@ class UserDetailActivity : AppCompatActivity() {
                 layoutManager = staggeredGridLayoutManager
             }
         }
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Log.d(TAG, "onOptionsItemSelected: ${item.itemId} ")
+        when(item.itemId){
+            HOME -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
