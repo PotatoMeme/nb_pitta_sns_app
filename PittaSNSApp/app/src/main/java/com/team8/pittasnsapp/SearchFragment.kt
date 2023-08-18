@@ -52,8 +52,10 @@ class SearchFragment : Fragment() {
         val postRecyclerViewAdapter: PostRecyclerViewAdapter = PostRecyclerViewAdapter { postId ->
             val intent: Intent =
                 Intent(this@SearchFragment.context, PostDetailActivity::class.java)
+            intent.putExtra("",false)
             intent.putExtra(Key.INTENT_USER_ID, currentUserId)
             intent.putExtra(Key.INTENT_POST_ID, postId)
+            intent.putExtra(Key.INTENT_BEFORE_FRAGMENT, true)
             startActivity(intent)
             activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.none)
         }
@@ -66,7 +68,6 @@ class SearchFragment : Fragment() {
         val editText: EditText = view.findViewById(R.id.search_edit_text)
 
         view.findViewById<FloatingActionButton>(R.id.search_button).setOnClickListener {
-
             if (editText.text.isBlank()) {
                 Toast.makeText(this@SearchFragment.context, "값을 입력해주세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener

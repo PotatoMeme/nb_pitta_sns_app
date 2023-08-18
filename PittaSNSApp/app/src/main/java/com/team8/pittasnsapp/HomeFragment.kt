@@ -76,6 +76,7 @@ class HomeFragment : Fragment() {
                     Intent(this@HomeFragment.context, PostDetailActivity::class.java)
                 intent.putExtra(Key.INTENT_USER_ID, currentUserId)
                 intent.putExtra(Key.INTENT_POST_ID, postId)
+                intent.putExtra(Key.INTENT_BEFORE_FRAGMENT, true)
                 startActivity(intent)
                 activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.none)
             }.apply {

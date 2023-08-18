@@ -27,6 +27,7 @@ class PostDetailActivity : AppCompatActivity() {
     private var postId: Int? = null
     private var currentUserId : Int? = null
     private var isSameUser : Boolean = false
+    private val beforeFragment : Boolean = intent.getBooleanExtra(Key.INTENT_BEFORE_FRAGMENT,false)
 
     private val activityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -40,7 +41,6 @@ class PostDetailActivity : AppCompatActivity() {
                 SampleData.changePost(postId!!,title,description)
                 startActivity(intent)
                 finish()
-
             }
         }
     }
@@ -99,7 +99,7 @@ class PostDetailActivity : AppCompatActivity() {
             return
         }
 
-        if (isSameUser) {
+        if (!beforeFragment && isSameUser) {
             finish()
             return
         }
