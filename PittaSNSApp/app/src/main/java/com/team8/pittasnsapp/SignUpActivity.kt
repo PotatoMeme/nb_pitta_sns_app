@@ -16,7 +16,7 @@ import com.team8.pittasnsapp.Util.idRegex
 import com.team8.pittasnsapp.Util.pwRegax
 
 class SignUpActivity : AppCompatActivity() {
-    companion object{
+    companion object {
         private const val HOME = 16908332
     }
 
@@ -25,9 +25,11 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var signUpPwCheckEdit: TextInputLayout
     private lateinit var signUpNameEdit: TextInputLayout
     private var idFlag = false
+    private var idDucplicatedCheckFlag = false
     private var pwFlag = false
     private var pwCheckFlag = false
     private var nameFlag = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,11 +65,11 @@ class SignUpActivity : AppCompatActivity() {
 
             if (signUpId.isEmpty() || signUpPw.isEmpty() || signUpPwCheck.isEmpty() || signUpName.isEmpty()) {
                 Toast.makeText(this, "입력되지 않은 정보가 있습니다.", Toast.LENGTH_SHORT).show()
-            } else if (flagCheck()){
+            } else if (flagCheck()) {
                 val intent = Intent()
                 intent.putExtra("signedUpId", signUpId)
                 intent.putExtra("signedUpPw", signUpPw)
-                SampleData.addUser(signUpName,signUpId,signUpPw)
+                SampleData.addUser(signUpName, signUpId, signUpPw)
                 setResult(Activity.RESULT_OK, intent)
                 Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
                 finish()
@@ -75,9 +77,23 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this, "모든조건을 수행해 주세요", Toast.LENGTH_SHORT).show()
             }
         }
+        findViewById<Button>(R.id.id_check_button).setOnClickListener {
+            if (!idFlag) {
+                signUpIdEdit.error = "아이디 조건을 먼저 만족해주세요"
+                idDucplicatedCheckFlag = false
+            } else if (SampleData.userArrayList.any { it.personalId == signUpIdText.text.toString() }) {
+                signUpIdEdit.error = "중복되는 계정이 존재합니다. 다른 계정을 생성해주세요"
+                idDucplicatedCheckFlag = false
+            } else {
+                signUpIdEdit.error = null
+                signUpIdEdit.helperText = "중복되는 계정이 없습니다."
+                idDucplicatedCheckFlag = true
+            }
+        }
 
         signUpIdText.addTextChangedListener { s: Editable? ->
             if (s != null) {
+                idDucplicatedCheckFlag = false
                 when {
                     s.isEmpty() -> {
                         signUpIdEdit.error = "아이디를 입력해주세요."
@@ -152,11 +168,11 @@ class SignUpActivity : AppCompatActivity() {
 
 
     private fun flagCheck(): Boolean {
-        return idFlag && pwFlag && pwCheckFlag && nameFlag
+        return idFlag && idDucplicatedCheckFlag && pwFlag && pwCheckFlag && nameFlag
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
+        when (item.itemId) {
             HOME -> {
                 finish()
             }
