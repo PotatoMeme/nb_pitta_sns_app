@@ -16,12 +16,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.team8.pittasnsapp.adapter.PostRecyclerViewAdapter
 
+private const val ARG_PARAM1 = "current_user_id"
 
 class SearchFragment : Fragment() {
     companion object {
-        fun newInstance() = SearchFragment()
+        fun newInstance(currentUserId: Int) = SearchFragment().apply {
+            arguments = Bundle().apply {
+                putInt(ARG_PARAM1, currentUserId)
+            }
+        }
     }
 
+    private var currentUserId: Int? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            currentUserId = it.getInt(ARG_PARAM1)
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -39,6 +52,7 @@ class SearchFragment : Fragment() {
         val postRecyclerViewAdapter: PostRecyclerViewAdapter = PostRecyclerViewAdapter { postId ->
             val intent: Intent =
                 Intent(this@SearchFragment.context, PostDetailActivity::class.java)
+            intent.putExtra(Key.INTENT_USER_ID, currentUserId)
             intent.putExtra(Key.INTENT_POST_ID, postId)
             startActivity(intent)
             activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.none)

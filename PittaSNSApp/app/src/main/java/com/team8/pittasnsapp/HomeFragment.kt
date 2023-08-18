@@ -12,16 +12,28 @@ import com.team8.pittasnsapp.adapter.PostRecyclerViewAdapter
 import com.team8.pittasnsapp.adapter.ProfileRecyclerViewAdapter
 
 
+private const val ARG_PARAM1 = "current_user_id"
+
 class HomeFragment : Fragment() {
     companion object {
-        fun newInstance() = HomeFragment()
+        fun newInstance(currentUserId: Int) = HomeFragment().apply {
+            arguments = Bundle().apply {
+                putInt(ARG_PARAM1, currentUserId)
+            }
+        }
 
         private const val TAG = "HomeFragment"
         //private var count1 = 0
         //private var count2 = 0
     }
-    init {
-        //Log.d(TAG, "init: ${count1++}")
+
+    private var currentUserId: Int? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            currentUserId = it.getInt(ARG_PARAM1)
+        }
     }
 
     override fun onCreateView(
@@ -44,11 +56,11 @@ class HomeFragment : Fragment() {
             adapter = ProfileRecyclerViewAdapter { userId ->
                 val intent: Intent =
                     Intent(this@HomeFragment.context, UserDetailActivity::class.java)
-                intent.putExtra(Key.INTENT_USER_ID,userId)
+                intent.putExtra(Key.INTENT_USER_ID, userId)
                 startActivity(intent)
-                activity?.overridePendingTransition(R.anim.slide_in_right,R.anim.none)
+                activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.none)
             }.apply {
-                addAllUser(SampleData.userArrayList)
+                addAllUser(SampleData.userArrayList.filter { it.id != currentUserId })
             }
             layoutManager =
                 LinearLayoutManager(
@@ -62,9 +74,10 @@ class HomeFragment : Fragment() {
             adapter = PostRecyclerViewAdapter { postId ->
                 val intent: Intent =
                     Intent(this@HomeFragment.context, PostDetailActivity::class.java)
-                intent.putExtra(Key.INTENT_POST_ID,postId)
+                intent.putExtra(Key.INTENT_USER_ID, currentUserId)
+                intent.putExtra(Key.INTENT_POST_ID, postId)
                 startActivity(intent)
-                activity?.overridePendingTransition(R.anim.slide_in_right,R.anim.none)
+                activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.none)
             }.apply {
                 addAllPost(SampleData.postArrayList)
             }

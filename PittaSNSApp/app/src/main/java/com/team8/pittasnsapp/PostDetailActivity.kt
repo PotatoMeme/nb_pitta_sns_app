@@ -73,12 +73,12 @@ class PostDetailActivity : AppCompatActivity() {
     }
 
     private fun moveToUserDetailActivity() {
-        if (isSameUser) return
         if (postId == null) {
             Toast.makeText(this,"wrong path",Toast.LENGTH_SHORT).show()
             return
         }
 
+        if (isSameUser) finish()
         val intent : Intent = Intent(this,UserDetailActivity::class.java)
         intent.putExtra(Key.INTENT_USER_ID,currentUserId)
         startActivity(intent)
