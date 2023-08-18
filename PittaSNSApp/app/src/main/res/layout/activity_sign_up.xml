@@ -6,26 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".SignUpActivity">
 
-    <ImageView
-        android:id="@+id/signup_img"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/pittalogo" />
 
-    <TextView
-        android:id="@+id/signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/signup_title"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        android:textColor="#673AB7"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/lavender"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/white" />
 
     <TextView
         android:id="@+id/signup_id_text"
@@ -35,20 +25,21 @@
         android:layout_marginTop="16dp"
         android:text="@string/signup_id"
         android:textColor="@color/black"
-        android:textSize="12dp"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/signup_id_edit_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="8dp"
         app:counterEnabled="true"
         app:counterMaxLength="20"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/id_check_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_id_text">
 
@@ -56,33 +47,42 @@
             android:id="@+id/signup_id_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true"
+            android:background="@drawable/lavender_border"
             android:maxLines="1"
+            android:singleLine="true"
             android:textAppearance="@style/HintText" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/id_check_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="30dp"
+        android:text="중복확인"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/signup_id_edit_layout" />
 
     <TextView
         android:id="@+id/signup_pw_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
         android:text="@string/signup_pw"
         android:textColor="@color/black"
-        android:textSize="12dp"
+        android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/signup_id_edit_layout"
         app:layout_constraintTop_toBottomOf="@+id/signup_id_edit_layout" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/signup_pw_edit_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
         app:counterEnabled="true"
         app:counterMaxLength="16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/id_check_button"
+        app:layout_constraintStart_toStartOf="@+id/signup_id_edit_layout"
         app:layout_constraintTop_toBottomOf="@+id/signup_pw_text"
         app:passwordToggleEnabled="true">
 
@@ -90,6 +90,7 @@
             android:id="@+id/signup_pw_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/lavender_border"
             android:inputType="textPassword"
             android:textAppearance="@style/HintText" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -98,22 +99,20 @@
         android:id="@+id/signup_pwcheck_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
         android:text="@string/signup_pw_recheck"
         android:textColor="@color/black"
-        android:textSize="12dp"
+        android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/signup_pw_edit_layout"
         app:layout_constraintTop_toBottomOf="@+id/signup_pw_edit_layout" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/signup_pwcheck_edit_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/signup_pw_edit_layout"
+        app:layout_constraintStart_toStartOf="@+id/signup_pw_edit_layout"
         app:layout_constraintTop_toBottomOf="@+id/signup_pwcheck_text"
         app:passwordToggleEnabled="true">
 
@@ -121,6 +120,7 @@
             android:id="@+id/signup_pwcheck_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/lavender_border"
             android:inputType="textPassword"
             android:textAppearance="@style/HintText" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -129,57 +129,61 @@
         android:id="@+id/signup_name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
         android:layout_marginTop="8dp"
         android:text="@string/signup_name"
         android:textColor="@color/black"
-        android:textSize="12dp"
+        android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/signup_pwcheck_edit_layout"
         app:layout_constraintTop_toBottomOf="@+id/signup_pwcheck_edit_layout" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/signup_name_edit_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/signup_pwcheck_edit_layout"
+        app:layout_constraintStart_toStartOf="@+id/signup_pwcheck_edit_layout"
         app:layout_constraintTop_toBottomOf="@+id/signup_name_text">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signup_name_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true"
+            android:background="@drawable/lavender_border"
             android:maxLines="1"
+            android:singleLine="true"
             android:textAppearance="@style/HintText" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/signin_return"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/signin_back"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_name_edit_layout" />
+        app:layout_constraintTop_toBottomOf="@id/signup_name_edit_layout"
+        app:layout_constraintEnd_toEndOf="@+id/signup_name_edit_layout"
+        app:layout_constraintStart_toStartOf="@+id/signup_name_edit_layout">
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signin_back"
+            android:textSize="18sp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:textStyle="bold" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/signup_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/signup_btn"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/signin_return"
-        app:layout_constraintTop_toTopOf="@+id/signin_return" />
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signup_btn"
+            android:textSize="18sp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

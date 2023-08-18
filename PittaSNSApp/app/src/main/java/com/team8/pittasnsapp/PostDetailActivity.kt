@@ -82,6 +82,7 @@ class PostDetailActivity : AppCompatActivity() {
         val intent : Intent = Intent(this,UserDetailActivity::class.java)
         intent.putExtra(Key.INTENT_USER_ID,currentUserId)
         startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.none)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
