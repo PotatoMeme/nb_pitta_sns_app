@@ -51,4 +51,5 @@
     <string name="pitta">Pitta</string>
     <string name="mydata_text">My data</string>
     <string name="check_post_delete_question">Are you sure delete your post?</string>
+    <string name="logout_question">Are you sure logout?</string>
 </resources>
