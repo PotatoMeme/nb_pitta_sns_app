@@ -73,6 +73,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/lavender_border"
         android:hint="비밀번호를 입력 하세요."
+        android:inputType="textPassword"
         android:padding="10dp"
         android:singleLine="true"
         android:textStyle="italic"
