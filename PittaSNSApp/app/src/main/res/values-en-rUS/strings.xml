@@ -38,4 +38,17 @@
     <string name="signup_pw_check_blank">Please enter your password.</string>
     <string name="signup_pw_check_conditon">Password doesn\'t match</string>
     <string name="signup_name_blank">Please enter your name</string>
+
+
+    <string name="post_title_text">Title</string>
+    <string name="post_title_input_hint">Please input title</string>
+    <string name="post_description_text">Description</string>
+    <string name="post_description_input_hint">Please input description</string>
+    <string name="submit_text">Submit</string>
+    <string name="search_text">Search</string>
+    <string name="setting_text">Setting</string>
+    <string name="check_value_question">Please check your value</string>
+    <string name="pitta">Pitta</string>
+    <string name="mydata_text">My data</string>
+    <string name="check_post_delete_question">Are you sure delete your post?</string>
 </resources>

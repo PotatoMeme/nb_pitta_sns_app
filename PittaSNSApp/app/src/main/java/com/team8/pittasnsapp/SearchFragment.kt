@@ -70,7 +70,7 @@ class SearchFragment : Fragment() {
 
         view.findViewById<FloatingActionButton>(R.id.search_button).setOnClickListener {
             if (editText.text.isBlank()) {
-                Toast.makeText(this@SearchFragment.context, "값을 입력해주세요", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SearchFragment.context,  getString(R.string.check_value_question), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             postRecyclerViewAdapter.changeAllPost(SampleData.postArrayList.filter {

@@ -30,7 +30,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="32dp"
-                android:text="제목"
+                android:text="@string/post_title_text"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -47,7 +47,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView"
                 android:layout_marginTop="16dp"
                 android:textSize="20sp"
-                android:hint="제목을 입력해주세요"
+                android:hint="@string/post_title_input_hint"
                 android:padding="15dp"
                 android:background="@drawable/lavender_border"/>
             <TextView
@@ -55,7 +55,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="32dp"
-                android:text="내용"
+                android:text="@string/post_description_text"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -72,7 +72,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView2"
                 android:layout_marginTop="16dp"
                 android:textSize="20sp"
-                android:hint="내용을 입력해주세요"
+                android:hint="@string/post_description_input_hint"
                 android:padding="15dp"
                 android:background="@drawable/lavender_border"/>
 
@@ -80,7 +80,7 @@
                 android:id="@+id/submit_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="확인"
+                android:text="@string/submit_text"
                 android:layout_marginTop="25dp"
                 android:textSize="20sp"
                 android:padding="10dp"
@@ -88,7 +88,8 @@
                 app:layout_constraintStart_toStartOf="@+id/descriptions_edite_text"
                 app:layout_constraintTop_toBottomOf="@+id/descriptions_edite_text" />
             <View
-                app:layout_constraintTop_toBottomOf="@id/descriptions_edite_text"
+                app:layout_constraintTop_toBottomOf="@id/submit_button"
+                app:layout_constraintStart_toStartOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>

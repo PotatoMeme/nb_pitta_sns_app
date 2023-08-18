@@ -37,5 +37,16 @@
     <string name="user_detail_id">아이디</string>
     <string name="user_detail_logout">로그아웃</string>
     <string name="user_detail_introduce">자기소개 - 한 줄로 짧게 자기소개 하기</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="post_title_text">제목</string>
+    <string name="post_title_input_hint">제목을 입력해주세요</string>
+    <string name="post_description_text">내용</string>
+    <string name="post_description_input_hint">내용을 입력해주세요</string>
+    <string name="submit_text">확인</string>
+    <string name="search_text">검색</string>
+    <string name="setting_text">설정</string>
+    <string name="check_value_question">값을 확인해주세요</string>
+    <string name="pitta">Pitta</string>
+    <string name="mydata_text">내 정보</string>
+    <string name="check_post_delete_question">이글을 삭제하시겠습니까?</string>
 </resources>

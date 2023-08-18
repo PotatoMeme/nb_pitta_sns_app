@@ -23,7 +23,7 @@ class SignInActivity : AppCompatActivity() {
     private fun initViews() {
         val toolbar : Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Pitta"
+        supportActionBar?.title =  getString(R.string.pitta)
 
         val idText = findViewById<EditText>(R.id.id_edit_text)
         val pwText = findViewById<EditText>(R.id.pw_edit_text)

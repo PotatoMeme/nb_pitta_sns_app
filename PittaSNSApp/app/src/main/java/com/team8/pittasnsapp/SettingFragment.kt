@@ -29,10 +29,8 @@ class SettingFragment : Fragment() {
         val listView: ListView = view.findViewById<ListView>(R.id.list_view)
         val settingMenuTitleArray: Array<String> =
             arrayOf(
-                "로그아웃",
-                "내 정보",
-                "폰트",
-                "테마",
+                getString(R.string.user_detail_logout),
+                getString(R.string.mydata_text),
             )
         val arrayAdapter = context?.let {
             ArrayAdapter(

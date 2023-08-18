@@ -125,7 +125,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViews() {
         val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
-        toolbar.title = "Pitta"
+        toolbar.title =  getString(R.string.pitta)
 
         val fragmentManager = supportFragmentManager
         fragmentManager.beginTransaction().add(R.id.frame_layout, homeFragment).commit()
@@ -136,14 +136,14 @@ class MainActivity : AppCompatActivity() {
                 when (item.itemId) {
                     R.id.bottom_home -> {
                         currentFragment = HOME_FRAGMENT
-                        toolbar.title = "Pitta"
+                        toolbar.title =  getString(R.string.pitta)
                         fragmentManager.beginTransaction().replace(R.id.frame_layout, homeFragment)
                             .commit()
                     }
 
                     R.id.bottom_search -> {
                         currentFragment = SEARCH_FRAGMENT
-                        toolbar.title = "검색"
+                        toolbar.title = getString(R.string.search_text)
                         fragmentManager.beginTransaction()
                             .replace(R.id.frame_layout, searchFragment).commit()
                     }
@@ -163,7 +163,7 @@ class MainActivity : AppCompatActivity() {
 
                     R.id.bottom_setting -> {
                         currentFragment = SETTING_FRAGMENT
-                        toolbar.title = "설정"
+                        toolbar.title = getString(R.string.setting_text)
                         fragmentManager.beginTransaction()
                             .replace(R.id.frame_layout, settingFragment).commit()
                     }
