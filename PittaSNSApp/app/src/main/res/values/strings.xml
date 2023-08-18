@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">PittaSNSApp</string>
+    <string name="signup_title">회원가입</string>
+    <string name="signup_id">아이디</string>
+    <string name="signup_id_hint">영문, 소문자, 숫자, 특수기호 : 5 ~ 20자</string>
+    <string name="signup_pw">비밀번호</string>
+    <string name="signup_pw_hint">영문 대/소문자, 숫자, 특수문자(!@#$$%) 8~16자</string>
+    <string name="signup_pw_recheck">비밀번호 재확인</string>
+    <string name="signup_name">이름</string>
+    <string name="signin_back">돌아가기</string>
+    <string name="signup_btn">회원가입</string>
+    <string name="user_detail_id_text_view">아이디</string>
+    <string name="user_detail_name_text_view">이름</string>
+    <string name="user_detail_member_name">팀원 이름</string>
+    <string name="user_detail_id">아이디</string>
+    <string name="user_detail_logout">로그아웃</string>
+    <string name="user_detail_introduce">자기소개 - 한 줄로 짧게 자기소개 하기</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
