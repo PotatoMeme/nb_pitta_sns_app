@@ -15,6 +15,9 @@
         android:theme="@style/Theme.PittaSNSApp"
         tools:targetApi="31">
         <activity
+            android:name=".PostUpdateActivity"
+            android:exported="false" />
+        <activity
             android:name=".PostAddActivity"
             android:exported="false" />
         <activity

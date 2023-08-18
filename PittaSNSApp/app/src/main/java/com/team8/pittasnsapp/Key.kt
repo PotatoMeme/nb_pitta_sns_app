@@ -9,4 +9,5 @@ object Key {
     const val INTENT_POST_DESCRIPTION: String = "intentPostDescription"
 
     const val RESULT_OK_POST_CREATE: Int = 1000
+    const val RESULT_OK_POST_UPDATE: Int = 1001
 }

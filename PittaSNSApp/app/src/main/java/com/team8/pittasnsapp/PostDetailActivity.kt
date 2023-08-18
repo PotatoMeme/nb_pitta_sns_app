@@ -3,10 +3,14 @@ package com.team8.pittasnsapp
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
@@ -23,6 +27,23 @@ class PostDetailActivity : AppCompatActivity() {
     private var postId: Int? = null
     private var currentUserId : Int? = null
     private var isSameUser : Boolean = false
+
+    private val activityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { actvityResult: ActivityResult ->
+        if (actvityResult.resultCode == Key.RESULT_OK_POST_UPDATE) {
+            val title: String? = actvityResult.data?.getStringExtra(Key.INTENT_POST_TITLE)
+            val description: String? =
+                actvityResult.data?.getStringExtra(Key.INTENT_POST_DESCRIPTION)
+
+            if (title != null && description != null) {
+                SampleData.changePost(postId!!,title,description)
+                startActivity(intent)
+                finish()
+
+            }
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_detail)
@@ -78,11 +99,21 @@ class PostDetailActivity : AppCompatActivity() {
             return
         }
 
-        if (isSameUser) finish()
+        if (isSameUser) {
+            finish()
+            return
+        }
         val intent : Intent = Intent(this,UserDetailActivity::class.java)
         intent.putExtra(Key.INTENT_USER_ID,currentUserId)
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.none)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        if (isSameUser){
+            menuInflater.inflate(R.menu.toolbar_menu,menu)
+        }
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -90,6 +121,13 @@ class PostDetailActivity : AppCompatActivity() {
         when(item.itemId){
             HOME -> {
                 finish()
+            }
+            R.id.menu_edit->{
+                val intent = Intent(this,PostUpdateActivity::class.java)
+                activityResultLauncher.launch(intent)
+            }
+            R.id.menu_delete->{
+
             }
         }
         return super.onOptionsItemSelected(item)

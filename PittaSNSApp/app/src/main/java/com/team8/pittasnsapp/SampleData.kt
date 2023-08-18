@@ -148,6 +148,7 @@ object SampleData {
         userArrayList.add(User(nextId,personalId,personalPw, name, message, sampleImgUrl))
     }
 
+
     private val samplePostImgs = arrayOf(
         "https://i.namu.wiki/i/UjUHE8ze_G6Kgse-pb9j5OZGndT4TbJ6PAwlpvrhpANiak2GRE5buT0UMXaLDFISTaBNVHSck-IybbDneDusyA.webp",
         "https://newsimg-hams.hankookilbo.com/2022/10/19/7576de8e-e4f6-4827-9f17-cfefe4be052f.jpg",
@@ -213,5 +214,14 @@ object SampleData {
                 samplePostImgs[0]
             )
         )
+    }
+
+    fun changePost(postId:Int,title: String,description: String){
+        for (i in postArrayList.indices){
+            if(postArrayList[i].id ==postId){
+                postArrayList[i] =  postArrayList[i].copy(title = title, description = description)
+                return
+            }
+        }
     }
 }
