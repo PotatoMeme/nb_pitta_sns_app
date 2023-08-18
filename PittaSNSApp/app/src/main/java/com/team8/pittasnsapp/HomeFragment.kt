@@ -58,6 +58,7 @@ class HomeFragment : Fragment() {
                 val intent: Intent =
                     Intent(this@HomeFragment.context, UserDetailActivity::class.java)
                 intent.putExtra(Key.INTENT_USER_ID, userId)
+                intent.putExtra(Key.INTENT_LOGIN_USER_ID,currentUserId)
                 intent.putExtra(Key.INTENT_BEFORE_FRAGMENT, true)
                 (activity as MainActivity).useActivityResultLauncher(intent)
                 activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.none)

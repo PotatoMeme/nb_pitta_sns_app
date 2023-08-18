@@ -27,7 +27,12 @@ class UserDetailActivity : AppCompatActivity() {
         private const val TAG = "UserDetailActivity"
     }
 
-    private var userId: Int? = null
+    private val userId: Int by lazy {
+        intent.getIntExtra(Key.INTENT_USER_ID, -1)
+    }
+    private val loginUserId : Int by lazy {
+        intent.getIntExtra(Key.INTENT_LOGIN_USER_ID,-1)
+    }
     private val beforeFragment : Boolean by lazy {
         intent.getBooleanExtra(Key.INTENT_BEFORE_FRAGMENT,false)
     }
@@ -37,14 +42,9 @@ class UserDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_detail)
 
-        settings()
         initViews()
     }
 
-    private fun settings() {
-        userId = intent.getIntExtra(Key.INTENT_USER_ID, 0)
-        Log.d(TAG, "settings: $userId")
-    }
 
     private fun initViews() {
         val toolbar: Toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -67,7 +67,7 @@ class UserDetailActivity : AppCompatActivity() {
                 adapter = StaggeredPostRecyclerViewAdapter { postId ->
                     val intent: Intent =
                         Intent(this@UserDetailActivity, PostDetailActivity::class.java)
-                    intent.putExtra(Key.INTENT_USER_ID, userId)
+                    intent.putExtra(Key.INTENT_USER_ID, loginUserId)
                     intent.putExtra(Key.INTENT_POST_ID, postId)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.none)
