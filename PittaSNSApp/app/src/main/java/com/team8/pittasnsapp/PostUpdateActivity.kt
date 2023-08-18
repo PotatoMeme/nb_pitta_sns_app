@@ -36,7 +36,7 @@ class PostUpdateActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         if (postId != null){
             val currentPost: Post = SampleData.postArrayList.first { it.id == postId }
-            supportActionBar?.title = "Pitta"
+            supportActionBar?.title =  getString(R.string.pitta)
             val titleEditText: EditText = findViewById(R.id.title_edite_text)
             val descriptionEditText: EditText = findViewById(R.id.descriptions_edite_text)
             titleEditText.setText(currentPost.title)
@@ -45,7 +45,7 @@ class PostUpdateActivity : AppCompatActivity() {
             findViewById<Button>(R.id.submit_button).setOnClickListener {
 
                 if (titleEditText.text.isBlank() || descriptionEditText.text.isBlank()) {
-                    Toast.makeText(this, "값을 확인해주세요", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,  getString(R.string.check_value_question), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
 

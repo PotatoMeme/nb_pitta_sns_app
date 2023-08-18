@@ -128,8 +128,8 @@ class PostDetailActivity : AppCompatActivity() {
                 activityResultLauncher.launch(intent)
             }
             R.id.menu_delete->{
-                val sb = Snackbar.make(this,findViewById(R.id.title_text_view),"이글을 삭제하시겠습니까?",Snackbar.LENGTH_LONG)
-                sb.setAction("확인"){
+                val sb = Snackbar.make(this,findViewById(R.id.title_text_view),getString(R.string.check_post_delete_question),Snackbar.LENGTH_LONG)
+                sb.setAction( getString(R.string.submit_text)){
                     SampleData.deletePost(postId!!)
                     setResult(Key.RESULT_OK_POST_DELETE,intent)
                     finish()
