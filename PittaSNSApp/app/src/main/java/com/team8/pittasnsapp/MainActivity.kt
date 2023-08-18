@@ -1,12 +1,9 @@
 package com.team8.pittasnsapp
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils.replace
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -43,13 +40,41 @@ class MainActivity : AppCompatActivity() {
     private val activityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { actvityResult: ActivityResult ->
-        if (actvityResult.resultCode == Key.RESULT_OK_POST_CREATE) {
-            val title: String? = actvityResult.data?.getStringExtra(Key.INTENT_POST_TITLE)
-            val description: String? =
-                actvityResult.data?.getStringExtra(Key.INTENT_POST_DESCRIPTION)
+        when (actvityResult.resultCode) {
+            Key.RESULT_OK_POST_CREATE -> {
+                val title: String? = actvityResult.data?.getStringExtra(Key.INTENT_POST_TITLE)
+                val description: String? =
+                    actvityResult.data?.getStringExtra(Key.INTENT_POST_DESCRIPTION)
 
-            if (title != null && description != null) {
-                SampleData.addPost(currentUserId, title, description)
+                if (title != null && description != null) {
+                    SampleData.addPost(currentUserId, title, description)
+                    val fragmentManager = supportFragmentManager
+                    when (currentFragment) {
+                        HOME_FRAGMENT -> {
+                            fragmentManager.beginTransaction()
+                                .detach(homeFragment).commit()
+                            fragmentManager.beginTransaction()
+                                .attach(homeFragment).commit()
+                        }
+
+                        SEARCH_FRAGMENT -> {
+                            fragmentManager.beginTransaction()
+                                .detach(searchFragment).commit()
+                            fragmentManager.beginTransaction()
+                                .attach(searchFragment).commit()
+                        }
+
+                        USER_FRAGMENT -> {
+                            fragmentManager.beginTransaction()
+                                .detach(userFragment).commit()
+                            fragmentManager.beginTransaction()
+                                .attach(userFragment).commit()
+                        }
+                    }
+                }
+            }
+
+            Key.RESULT_OK_POST_DELETE -> {
                 val fragmentManager = supportFragmentManager
                 when (currentFragment) {
                     HOME_FRAGMENT -> {
@@ -73,6 +98,19 @@ class MainActivity : AppCompatActivity() {
                             .attach(userFragment).commit()
                     }
                 }
+            }
+
+            Key.RESULT_OK_BEFORE_FLAGMENT -> {
+                findViewById<BottomNavigationView>(R.id.bottom_navigation_view).selectedItemId = R.id.bottom_user
+                val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
+                toolbar.title =
+                    SampleData.userArrayList.first { it.id == currentUserId }.name
+                val fragmentManager = supportFragmentManager
+                fragmentManager.beginTransaction().replace(R.id.frame_layout, userFragment).commit()
+                fragmentManager.beginTransaction()
+                    .detach(searchFragment).commit()
+                fragmentManager.beginTransaction()
+                    .attach(searchFragment).commit()
             }
         }
     }
@@ -132,6 +170,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
+    }
+
+    public fun useActivityResultLauncher(intent: Intent) {
+        activityResultLauncher.launch(intent)
     }
 
     private fun hideKeyboard() {

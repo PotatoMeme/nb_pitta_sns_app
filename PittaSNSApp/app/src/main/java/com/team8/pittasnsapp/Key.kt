@@ -12,4 +12,7 @@ object Key {
 
     const val RESULT_OK_POST_CREATE: Int = 1000
     const val RESULT_OK_POST_UPDATE: Int = 1001
+    const val RESULT_OK_POST_DELETE: Int = 1002
+
+    const val RESULT_OK_BEFORE_FLAGMENT: Int = 2000
 }

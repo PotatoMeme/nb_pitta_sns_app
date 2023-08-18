@@ -224,4 +224,13 @@ object SampleData {
             }
         }
     }
+
+    fun deletePost(postId: Int){
+        for (i in postArrayList.indices){
+            if(postArrayList[i].id ==postId){
+                postArrayList.removeAt(i)
+                return
+            }
+        }
+    }
 }

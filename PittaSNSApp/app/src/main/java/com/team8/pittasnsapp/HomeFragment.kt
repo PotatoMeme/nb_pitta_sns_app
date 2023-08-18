@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.team8.pittasnsapp.adapter.PostRecyclerViewAdapter
@@ -21,7 +23,6 @@ class HomeFragment : Fragment() {
                 putInt(ARG_PARAM1, currentUserId)
             }
         }
-
         private const val TAG = "HomeFragment"
         //private var count1 = 0
         //private var count2 = 0
@@ -57,7 +58,8 @@ class HomeFragment : Fragment() {
                 val intent: Intent =
                     Intent(this@HomeFragment.context, UserDetailActivity::class.java)
                 intent.putExtra(Key.INTENT_USER_ID, userId)
-                startActivity(intent)
+                intent.putExtra(Key.INTENT_BEFORE_FRAGMENT, true)
+                (activity as MainActivity).useActivityResultLauncher(intent)
                 activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.none)
             }.apply {
                 addAllUser(SampleData.userArrayList.filter { it.id != currentUserId })
@@ -77,7 +79,7 @@ class HomeFragment : Fragment() {
                 intent.putExtra(Key.INTENT_USER_ID, currentUserId)
                 intent.putExtra(Key.INTENT_POST_ID, postId)
                 intent.putExtra(Key.INTENT_BEFORE_FRAGMENT, true)
-                startActivity(intent)
+                (activity as MainActivity).useActivityResultLauncher(intent)
                 activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.none)
             }.apply {
                 addAllPost(SampleData.postArrayList)

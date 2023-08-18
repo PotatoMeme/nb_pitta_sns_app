@@ -9,6 +9,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +28,11 @@ class UserDetailActivity : AppCompatActivity() {
     }
 
     private var userId: Int? = null
+    private val beforeFragment : Boolean by lazy {
+        intent.getBooleanExtra(Key.INTENT_BEFORE_FRAGMENT,false)
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_detail)
@@ -78,6 +86,7 @@ class UserDetailActivity : AppCompatActivity() {
         Log.d(TAG, "onOptionsItemSelected: ${item.itemId} ")
         when(item.itemId){
             HOME -> {
+                setResult(Key.RESULT_OK_POST_DELETE,intent)
                 finish()
             }
         }

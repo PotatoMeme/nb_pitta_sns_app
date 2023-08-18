@@ -35,6 +35,7 @@ class SearchFragment : Fragment() {
             currentUserId = it.getInt(ARG_PARAM1)
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -52,11 +53,11 @@ class SearchFragment : Fragment() {
         val postRecyclerViewAdapter: PostRecyclerViewAdapter = PostRecyclerViewAdapter { postId ->
             val intent: Intent =
                 Intent(this@SearchFragment.context, PostDetailActivity::class.java)
-            intent.putExtra("",false)
+            intent.putExtra("", false)
             intent.putExtra(Key.INTENT_USER_ID, currentUserId)
             intent.putExtra(Key.INTENT_POST_ID, postId)
             intent.putExtra(Key.INTENT_BEFORE_FRAGMENT, true)
-            startActivity(intent)
+            (activity as MainActivity).useActivityResultLauncher(intent)
             activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.none)
         }
         view.findViewById<RecyclerView>(R.id.post_recycler_view).apply {
