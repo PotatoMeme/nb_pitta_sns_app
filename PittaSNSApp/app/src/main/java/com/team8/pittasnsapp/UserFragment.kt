@@ -64,7 +64,7 @@ class UserFragment : Fragment() {
                         Intent(this@UserFragment.context, PostDetailActivity::class.java)
                     intent.putExtra(Key.INTENT_USER_ID, currentUserId)
                     intent.putExtra(Key.INTENT_POST_ID, postId)
-                    startActivity(intent)
+                    (activity as MainActivity).useActivityResultLauncher(intent)
                     activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.none)
                 }.apply {
                     addAllPost(SampleData.postArrayList.filter { it.user.id == currentUserId })
