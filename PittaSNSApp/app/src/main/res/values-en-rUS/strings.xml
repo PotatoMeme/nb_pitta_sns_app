@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PittaSNSApp</string>
+    <string name="signup_title">Join</string>
+    <string name="signup_id">ID</string>
+    <string name="signup_id_hint">English or number:5 to 20</string>
+    <string name="signup_pw">Password</string>
+    <string name="signup_pw_hint">English, numbers, special characters:8 to 16</string>
+    <string name="signup_pw_recheck">Confirm Password</string>
+    <string name="signup_name">Name</string>
+    <string name="signin_back_btn">Back</string>
+    <string name="signup_join_btn">Join</string>
+    <string name="user_detail_id_text_view">ID</string>
+    <string name="user_detail_name_text_view">Name</string>
+    <string name="user_detail_member_name">Crew Name</string>
+    <string name="user_detail_id">ID</string>
+    <string name="user_detail_logout">Logout</string>
+    <string name="user_detail_introduce">Introduce</string>
+    <string name="signin_id">ID</string>
+    <string name="signin_pw">Password</string>
+    <string name="signin_id_hint">Please enter your ID</string>
+    <string name="signin_pw_hint">Please enter your Passwoed</string>
+    <string name="signin_login_btn">Login</string>
+    <string name="signin_join_btn">Join</string>
+    <string name="signin_toast_fail">Please check your ID and password</string>
+    <string name="signin_toast_success">Login Success!!</string>
+    <string name="signup_duplicate_btn">Check ID</string>
+    <string name="join_btn_toast_fail_blank">Information not entered</string>
+    <string name="join_btn_toast_fail_condition">Please meet all the conditions</string>
+    <string name="join_btn_toast_success">Join membership completed</string>
+    <string name="check_btn_toast_condition">Please satisfy the conditions of the ID</string>
+    <string name="check_btn_toast_duplicate">Duplicate account exists</string>
+    <string name="check_btn_toast_success">ID is available.</string>
+    <string name="signup_id_blank">Please enter your ID</string>
+    <string name="signup_id_condition">ID conditions don\'t match</string>
+    <string name="signup_pw_blank">Please enter your password.</string>
+    <string name="signup_pw_condition">Password conditions do not match</string>
+    <string name="signup_pw_check_blank">Please enter your password.</string>
+    <string name="signup_pw_check_conditon">Password doesn\'t match</string>
+    <string name="signup_name_blank">Please enter your name</string>
+
+
+    <string name="post_title_text">Title</string>
+    <string name="post_title_input_hint">Please input title</string>
+    <string name="post_description_text">Description</string>
+    <string name="post_description_input_hint">Please input description</string>
+    <string name="submit_text">Submit</string>
+    <string name="search_text">Search</string>
+    <string name="setting_text">Setting</string>
+    <string name="check_value_question">Please check your value</string>
+    <string name="pitta">Pitta</string>
+    <string name="mydata_text">My data</string>
+    <string name="check_post_delete_question">Are you sure delete your post?</string>
+    <string name="logout_question">Are you sure logout?</string>
+</resources>

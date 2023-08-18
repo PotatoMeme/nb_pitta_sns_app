@@ -1,12 +1,16 @@
 package com.team8.pittasnsapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.NonDisposableHandle.parent
 
 class SettingFragment : Fragment() {
     companion object {
@@ -29,10 +33,8 @@ class SettingFragment : Fragment() {
         val listView: ListView = view.findViewById<ListView>(R.id.list_view)
         val settingMenuTitleArray: Array<String> =
             arrayOf(
-                "로그아웃",
-                "내 정보",
-                "폰트",
-                "테마",
+                getString(R.string.user_detail_logout),
+                getString(R.string.mydata_text),
             )
         val arrayAdapter = context?.let {
             ArrayAdapter(
@@ -42,5 +44,23 @@ class SettingFragment : Fragment() {
             )
         }
         listView.adapter = arrayAdapter
+        listView.setOnItemClickListener { parent, view, position, id ->
+            if (position == 0) {
+                val sb = Snackbar.make(
+                    view,
+                    getString(R.string.logout_question),
+                    Snackbar.LENGTH_LONG
+                )
+                sb.setAction(getString(R.string.submit_text)) {
+                    val intent = Intent(activity, SignInActivity::class.java)
+                    startActivity(intent)
+                    activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.none)
+                    activity?.finish()
+                }
+                sb.show()
+            }
+
+
+        }
     }
 }
