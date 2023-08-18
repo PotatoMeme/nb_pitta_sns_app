@@ -39,9 +39,10 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+        val joinText: String = getString(R.string.signup_title)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "회원가입"
+        supportActionBar?.title = joinText
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         signUpIdEdit = findViewById(R.id.signup_id_edit_layout)
@@ -62,46 +63,54 @@ class SignUpActivity : AppCompatActivity() {
             val signUpPw = signUpPwText.text.toString()
             val signUpPwCheck = signUpPwCheckText.text.toString()
             val signUpName = signUpNameText.text.toString()
+            val joinToastBlank: String = getString(R.string.join_btn_toast_fail_blank)
+            val joinToastCondition: String = getString(R.string.join_btn_toast_fail_condition)
+            val joinToastSuccess: String = getString(R.string.join_btn_toast_success)
 
             if (signUpId.isEmpty() || signUpPw.isEmpty() || signUpPwCheck.isEmpty() || signUpName.isEmpty()) {
-                Toast.makeText(this, "입력되지 않은 정보가 있습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, joinToastBlank, Toast.LENGTH_SHORT).show()
             } else if (flagCheck()) {
                 val intent = Intent()
                 intent.putExtra("signedUpId", signUpId)
                 intent.putExtra("signedUpPw", signUpPw)
                 SampleData.addUser(signUpName, signUpId, signUpPw)
                 setResult(Activity.RESULT_OK, intent)
-                Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, joinToastSuccess, Toast.LENGTH_SHORT).show()
                 finish()
             } else {
-                Toast.makeText(this, "모든조건을 수행해 주세요", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, joinToastCondition, Toast.LENGTH_SHORT).show()
             }
         }
         findViewById<Button>(R.id.id_check_button).setOnClickListener {
+            val checkToastCondition: String = getString(R.string.check_btn_toast_condition)
+            val checkToastDuplicate: String = getString(R.string.check_btn_toast_duplicate)
+            val checkToastSuccess: String = getString(R.string.check_btn_toast_success)
             if (!idFlag) {
-                signUpIdEdit.error = "아이디 조건을 먼저 만족해주세요"
+                signUpIdEdit.error = checkToastCondition
                 idDucplicatedCheckFlag = false
             } else if (SampleData.userArrayList.any { it.personalId == signUpIdText.text.toString() }) {
-                signUpIdEdit.error = "중복되는 계정이 존재합니다. 다른 계정을 생성해주세요"
+                signUpIdEdit.error = checkToastDuplicate
                 idDucplicatedCheckFlag = false
             } else {
                 signUpIdEdit.error = null
-                signUpIdEdit.helperText = "중복되는 계정이 없습니다."
+                signUpIdEdit.helperText = checkToastSuccess
                 idDucplicatedCheckFlag = true
             }
         }
 
         signUpIdText.addTextChangedListener { s: Editable? ->
+            val idToastBlank: String = getString(R.string.signup_id_blank)
+            val idToastConditon: String = getString(R.string.signup_id_condition)
             if (s != null) {
                 idDucplicatedCheckFlag = false
                 when {
                     s.isEmpty() -> {
-                        signUpIdEdit.error = "아이디를 입력해주세요."
+                        signUpIdEdit.error = idToastBlank
                         idFlag = false
                     }
 
                     !idRegex(s.toString()) -> {
-                        signUpIdEdit.error = "아이디 양식이 맞지 않습니다"
+                        signUpIdEdit.error = idToastConditon
                         idFlag = false
                     }
 
@@ -112,16 +121,19 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
         }
+
         signUpPwText.addTextChangedListener { s: Editable? ->
+            val pwToastBlank: String = getString(R.string.signup_pw_blank)
+            val pwToastConditon: String = getString(R.string.signup_pw_condition)
             if (s != null) {
                 when {
                     s.isEmpty() -> {
-                        signUpPwEdit.error = "비밀번호를 입력해주세요."
+                        signUpPwEdit.error = pwToastBlank
                         pwFlag = false
                     }
 
                     !pwRegax(s.toString()) -> {
-                        signUpPwEdit.error = "비밀번호 양식이 일치하지 않습니다."
+                        signUpPwEdit.error = pwToastConditon
                         pwFlag = false
                     }
 
@@ -133,16 +145,19 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
         signUpPwCheckText.addTextChangedListener { s: Editable? ->
+            val pwCheckToastBlank: String = getString(R.string.signup_pw_check_blank)
+            val pwCheckToastConditon: String = getString(R.string.signup_pw_check_conditon)
+
             if (s != null) {
                 val pw = signUpPwEdit.editText?.text.toString()
                 when {
                     s.isEmpty() -> {
-                        signUpPwCheckEdit.error = "비밀번호를 입력해주세요."
+                        signUpPwCheckEdit.error = pwCheckToastBlank
                         pwCheckFlag = false
                     }
 
                     pw != (s.toString()) -> {
-                        signUpPwCheckEdit.error = "비밀번호가 일치하지 않습니다."
+                        signUpPwCheckEdit.error = pwCheckToastConditon
                         pwCheckFlag = false
                     }
 
@@ -154,9 +169,10 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
         signUpNameText.addTextChangedListener { s: Editable? ->
+            val nameToastBlank: String = getString(R.string.signup_name_blank)
             if (s != null) {
                 if (s.isBlank()) {
-                    signUpNameEdit.error = "이름을 입력해주세요."
+                    signUpNameEdit.error = nameToastBlank
                     nameFlag = false
                 } else {
                     signUpNameEdit.error = null

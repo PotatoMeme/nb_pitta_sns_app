@@ -40,13 +40,15 @@ class SignInActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.login_btn).setOnClickListener {
+            val toastFail:String = getString(R.string.signin_toast_fail)
+            val toastSuccess:String = getString(R.string.signin_toast_success)
             val id = idText.text.toString()
             val pw = pwText.text.toString()
             val intent = Intent(this, MainActivity::class.java)
             if (id.isEmpty() || pw.isEmpty() || !SampleData.userArrayList.any{it.personalId == id && it.personalPassword == pw}) {
-                Toast.makeText(this, "아이디/비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,toastFail, Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, toastSuccess, Toast.LENGTH_SHORT).show()
                 intent.putExtra(Key.INTENT_LOGIN_USER_ID,SampleData.userArrayList.first{it.personalId == id && it.personalPassword == pw}.id )
                 startActivity(intent)
                 overridePendingTransition(R.anim.slide_in_right, R.anim.none)
